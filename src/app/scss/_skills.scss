@@ -1,0 +1,38 @@
+.skill {
+    margin-bottom: 18px;
+
+    span {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+.skill-bar {
+    height: 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: $color-skill-background;
+}
+
+.skill-level {
+    height: 100%;
+    background: $color-accent;
+}
+
+.level-html {
+    width: 70%;
+}
+
+.level-css {
+    width: 60%;
+}
+
+.level-bootstrap {
+    width: 55%;
+}
+
+.level-js {
+    width: 35%;
+}

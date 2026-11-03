@@ -1,0 +1,14 @@
+// Міксін для оформлення заголовків
+@mixin section-heading($color: $color-accent) {
+    margin-bottom: 20px;
+    font-weight: bold;
+    border-left: 5px solid $color;
+}
+
+// Базовий стиль для карток
+%card-style {
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    background: $color-project;
+    border-radius: 4px;
+}

@@ -3,6 +3,7 @@ const gulp = require('gulp');
 const fileInclude = require('gulp-file-include');
 const sass = require('gulp-sass')(require('sass'));
 const cssnano = require('gulp-cssnano');
+const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 const concat = require('gulp-concat');
 const browserSync = require('browser-sync').create();
@@ -40,10 +41,11 @@ function html() {
 
 // SCSS
 function styles() {
-    return gulp.src(paths.scss.src)
+    return gulp.src('src/app/scss/style.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(cssnano())
-        .pipe(gulp.dest(paths.scss.dest))
+        .pipe(rename('index.min.css'))
+        .pipe(gulp.dest('dist/css/'))
         .pipe(browserSync.stream());
 }
 
