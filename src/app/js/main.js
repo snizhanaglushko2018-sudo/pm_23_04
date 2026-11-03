@@ -1,1 +1,1 @@
-console.log('Gulp JavaScript працює!');
+console.log('Gulp JavaScript працює!!');

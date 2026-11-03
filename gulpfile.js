@@ -1,3 +1,4 @@
+
 const gulp = require('gulp');
 const fileInclude = require('gulp-file-include');
 const sass = require('gulp-sass')(require('sass'));
@@ -6,6 +7,7 @@ const uglify = require('gulp-uglify');
 const concat = require('gulp-concat');
 const browserSync = require('browser-sync').create();
 const imagemin = require('gulp-imagemin');
+
 const paths = {
     html: {
         src: 'src/*.html',
@@ -20,7 +22,11 @@ const paths = {
         dest: 'dist/js/'
     }
 };
-
+// Bootstrap
+const bootstrapPaths = {
+    css: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
+    js: 'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
+};
 // HTML
 function html() {
     return gulp.src(paths.html.src)
@@ -49,18 +55,31 @@ function scripts() {
         .pipe(gulp.dest(paths.js.dest))
         .pipe(browserSync.stream());
 }
+// Copy Bootstrap CSS
+function bootstrapCss() {
+    return gulp.src(bootstrapPaths.css)
+        .pipe(gulp.dest('dist/css/'));
+}
+
+// Copy Bootstrap JS
+function bootstrapJs() {
+    return gulp.src(bootstrapPaths.js)
+        .pipe(gulp.dest('dist/js/'));
+}
 // Images
 function images() {
-    return gulp.src('src/app/imgs/**/*')
+    return gulp.src('src/app/imgs/**/*', { encoding: false })
         .pipe(imagemin())
         .pipe(gulp.dest('dist/imgs/'));
 }
+
 // BrowserSync
 function serve() {
     browserSync.init({
         server: {
             baseDir: './dist'
-        }
+        },
+        browser: 'chrome'
     });
 
     gulp.watch(paths.html.src, html);
@@ -69,7 +88,14 @@ function serve() {
 }
 
 // Build
-const build = gulp.parallel(html, styles, scripts, images);
+const build = gulp.parallel(
+    html,
+    styles,
+    scripts,
+    images,
+    bootstrapCss,
+    bootstrapJs
+);
 
 exports.html = html;
 exports.styles = styles;
